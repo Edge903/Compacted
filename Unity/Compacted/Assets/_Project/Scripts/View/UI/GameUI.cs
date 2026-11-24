@@ -25,7 +25,9 @@ namespace Compacted.View
         Button leaveButton;
         Label modeLabel, toastLabel;
         readonly List<VisualElement> slots = new List<VisualElement>();
-        VisualElement destroySlot;
+        VisualElement destroySlot, descriptionBox;
+        Label descriptionTitle, descriptionText;
+        const string DescriptionPlaceholder = "Description placeholder";
         readonly Dictionary<Panel, Button> sideTabs = new Dictionary<Panel, Button>();
         float toastUntil;
 
@@ -152,6 +154,13 @@ namespace Compacted.View
             Text(destroySlot, "✕", "trash");
             destroySlot.RegisterCallback<ClickEvent>(_ => { CloseBrowser(); game.SetDestroyMode(!game.DestroyMode); });
 
+            // Description of the selected toolbar block, just above the toolbar.
+            descriptionBox = Add(hud, new VisualElement(), "box", "desc");
+            descriptionBox.pickingMode = PickingMode.Ignore;
+            descriptionTitle = Text(descriptionBox, "", "desc-title");
+            descriptionText = Text(descriptionBox, "", "desc-text");
+            descriptionBox.style.display = DisplayStyle.None;
+
             bigWindow = Add(root, new VisualElement(), "box", "big");
             bigWindow.style.display = DisplayStyle.None;
 
@@ -181,6 +190,7 @@ namespace Compacted.View
         void OnChanged()
         {
             RebuildToolbar();
+            UpdateDescription();
             RebuildCrumb();
             if (game.SelectedEntity == 0) ClosePopup();
             if (BrowserOpen) RenderBrowser();
@@ -231,6 +241,17 @@ namespace Compacted.View
                 else s.tooltip = "Empty slot";
             }
             destroySlot.EnableInClassList("sel", game.DestroyMode);
+        }
+
+        /// <summary>Show the selected toolbar block's description above the toolbar; hide it when nothing is selected.</summary>
+        void UpdateDescription()
+        {
+            var type = game.SelectedType;
+            var def = type != null ? Db.Building(type) : null;
+            if (def == null) { descriptionBox.style.display = DisplayStyle.None; return; }
+            descriptionTitle.text = def.displayName;
+            descriptionText.text = string.IsNullOrWhiteSpace(def.description) ? DescriptionPlaceholder : def.description.Trim();
+            descriptionBox.style.display = DisplayStyle.Flex;
         }
 
         void SlotClicked(int i)

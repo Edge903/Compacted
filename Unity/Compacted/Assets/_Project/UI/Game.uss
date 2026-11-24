@@ -108,6 +108,15 @@ Button.dim { opacity: 0.45; }
 .divider { width: 1px; height: 40px; background-color: var(--border); margin-left: 6px; margin-right: 6px; }
 .trash { color: var(--danger); font-size: 18px; -unity-font-style: bold; }
 
+/* ---- block description (above the toolbar) ---- */
+.desc {
+    bottom: 118px; left: 50%; translate: -50% 0;
+    width: 440px; max-width: 70%;
+    padding: 8px 12px;
+}
+.desc-title { -unity-font-style: bold; font-size: 13px; margin-bottom: 4px; }
+.desc-text { color: var(--muted); white-space: normal; font-size: 12px; }
+
 /* ---- big windows ---- */
 .big { left: 8%; right: 8%; top: 8%; bottom: 16%; }
 .big-body { flex-grow: 1; }

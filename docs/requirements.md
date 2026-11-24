@@ -240,6 +240,10 @@ Place sources → process through machines and controllers → collect by hand �
   - **R** rotates the preview. This sets a belt's direction or a machine's output side. Controllers don't rotate (§3).
 - **Left click:** places the selected block.
 - **Right click:** deselects it.
+- **Description window:** while a toolbar block is selected, a window just above the toolbar shows its name and description.
+  - Descriptions are multi-line and written per block (`BuildingDefinition.description`).
+  - Until a block's description is written, the window shows "Description placeholder".
+  - The window hides when nothing is selected.
 
 **Inspecting**
 - With nothing selected, clicking a placed building opens an **info popup**:
@@ -338,6 +342,7 @@ FluidDef
 BuildingDef
   id, name, icon
   visual: VisualRef                      // swappable look (sprite / prefab); no text labels (§1.1)
+  description: multi-line text           // shown above the toolbar when selected (§8.1)
   kind: belt | pipe | machine | controller | core | part | hatch
   browserTab: logistics | machines | other
   item?: ItemId                          // the item placed from / refunded as; absent = free to place (belts, pipes)

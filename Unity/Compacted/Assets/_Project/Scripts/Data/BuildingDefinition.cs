@@ -10,6 +10,8 @@ namespace Compacted.Data
         public BuildingKind kind;
         public BrowserTab browserTab;
         public Visual visual = new Visual(Color.gray);
+        [Tooltip("Shown above the toolbar while this block is selected. Multi-line.")]
+        [TextArea(3, 10)] public string description;
 
         [Tooltip("Placed without an item and never refunded (belts, pipes).")]
         public bool free;
