@@ -19,6 +19,7 @@ MonoBehaviour:
   visual:
     sprite: {fileID: 0}
     color: {r: 0.3019608, g: 0.2901961, b: 0.25882354, a: 1}
+  description: 
   free: 0
   item: {fileID: 11400000, guid: 511e63a736fc8fa47877ae08b7687a1f, type: 2}
   placement: 1
