@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765464c33b40a1b44a702002d55a93db, type: 3}
+  m_Name: compactor
+  m_EditorClassIdentifier: Compacted.Data::Compacted.Data.MultiblockDefinition
+  id: compactor
+  displayName: Dimension Compactor
+  core: {fileID: 11400000, guid: a11bcfb758c62c2469847169ba336bc1, type: 2}
+  group: compactor
+  size: {x: 2, y: 2}
+  counts:
+  - block: {fileID: 11400000, guid: a11bcfb758c62c2469847169ba336bc1, type: 2}
+    min: 1
+    max: 1
+  - block: {fileID: 11400000, guid: 78ac4832343f34847812732b6d30c920, type: 2}
+    min: 1
+    max: 1
+  - block: {fileID: 11400000, guid: 896df651e170ab042a10616f7f4e838a, type: 2}
+    min: 1
+    max: 2
+  - block: {fileID: 11400000, guid: cafaf0457e635b444817fdc0bb0bda27, type: 2}
+    min: 1
+    max: 2
+  adjacent:
+  - a: {fileID: 11400000, guid: 78ac4832343f34847812732b6d30c920, type: 2}
+    b: {fileID: 11400000, guid: a11bcfb758c62c2469847169ba336bc1, type: 2}

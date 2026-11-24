@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc400b0e592732499a6e54b04705c10, type: 3}
+  m_Name: mining
+  m_EditorClassIdentifier: Compacted.Data::Compacted.Data.TechNodeDefinition
+  id: mining
+  displayName: Mining
+  position: {x: 4, y: 0}
+  prerequisites:
+  - {fileID: 11400000, guid: 3257a81f2d10e7048ae165bfd6baeae7, type: 2}
+  cost:
+  - item: {fileID: 11400000, guid: 597e1cbd5e928694fabd4aa10b136127, type: 2}
+    amount: 20
+  requires: []
+  grants:
+  - item: {fileID: 11400000, guid: 784b5053688bf5147a529eefdae705e7, type: 2}
+    amount: 1
+  unlockHandRecipes:
+  - {fileID: 11400000, guid: da67318ca294e4145b3a6ed6a6030fd8, type: 2}
+  unlockMachineRecipes: []

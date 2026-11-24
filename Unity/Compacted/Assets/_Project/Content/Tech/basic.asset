@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc400b0e592732499a6e54b04705c10, type: 3}
+  m_Name: basic
+  m_EditorClassIdentifier: Compacted.Data::Compacted.Data.TechNodeDefinition
+  id: basic
+  displayName: Basic Machinery
+  position: {x: 3, y: 0}
+  prerequisites:
+  - {fileID: 11400000, guid: 897ed07deeb352d498a4ef4760e7fcb3, type: 2}
+  cost:
+  - item: {fileID: 11400000, guid: 597e1cbd5e928694fabd4aa10b136127, type: 2}
+    amount: 10
+  requires: []
+  grants: []
+  unlockHandRecipes:
+  - {fileID: 11400000, guid: e4f7ce422ff28794c85d6f9eb163b1c9, type: 2}
+  - {fileID: 11400000, guid: 2a5d5e93e46a7ab41ad4656153fbe795, type: 2}
+  - {fileID: 11400000, guid: 7e01b8448e66248438b36c649f593aaf, type: 2}
+  - {fileID: 11400000, guid: 04609192ac5381f4c90e36b71af1f895, type: 2}
+  - {fileID: 11400000, guid: e21b14de27c26cf40877643edc412b30, type: 2}
+  unlockMachineRecipes: []

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a5a95fbefedf31409252f655758fa46, type: 3}
+  m_Name: mix_clay
+  m_EditorClassIdentifier: Compacted.Data::Compacted.Data.RecipeDefinition
+  id: mix_clay
+  displayName: Dimensium clay
+  type: 0
+  group: mixer
+  locked: 0
+  time: 6
+  inputs:
+  - item: {fileID: 11400000, guid: 7332d36f341658d429cb129676170d72, type: 2}
+    amount: 4
+  fluidInputs:
+  - fluid: {fileID: 11400000, guid: ea2d963c2f29d4348900732490baf1fc, type: 2}
+    ml: 500
+  fuel: 0
+  outputs:
+  - item: {fileID: 11400000, guid: d7747941f062c6044a3b45326b13bff5, type: 2}
+    amount: 1
+  fluidOutputs: []

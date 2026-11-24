@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96dcc010c44ccd4429345631c3ef96bb, type: 3}
+  m_Name: Tuning
+  m_EditorClassIdentifier: Compacted.Data::Compacted.Data.TuningDefinition
+  tickRate: 20
+  beltTime: 0.5
+  inputBufferMult: 3
+  outputCap: 10
+  fuelBufferMult: 3
+  fluidBuffer: 10000
+  pipeCapacity: 1000
+  fluidPerTick: 100
+  inventoryCap: 100

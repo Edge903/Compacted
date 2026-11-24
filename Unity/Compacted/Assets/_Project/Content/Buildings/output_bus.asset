@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cbaa9297628b2a4083ddf1727b78605, type: 3}
+  m_Name: output_bus
+  m_EditorClassIdentifier: Compacted.Data::Compacted.Data.BuildingDefinition
+  id: output_bus
+  displayName: Dimensium output bus
+  kind: 6
+  browserTab: 2
+  visual:
+    sprite: {fileID: 0}
+    color: {r: 0.3019608, g: 0.23921569, b: 0.11764706, a: 1}
+  free: 0
+  item: {fileID: 11400000, guid: 907cb24c4386bf1488b76c7a0e533441, type: 2}
+  placement: 0
+  machineGroup: 
+  outputCap: 0
+  controllerSize: 0
+  multiblock: {fileID: 0}
+  hatchIo: 2

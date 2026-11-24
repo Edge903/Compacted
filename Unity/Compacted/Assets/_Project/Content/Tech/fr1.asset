@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc400b0e592732499a6e54b04705c10, type: 3}
+  m_Name: fr1
+  m_EditorClassIdentifier: Compacted.Data::Compacted.Data.TechNodeDefinition
+  id: fr1
+  displayName: Field Research I
+  position: {x: 0, y: 1}
+  prerequisites: []
+  cost:
+  - item: {fileID: 11400000, guid: 7332d36f341658d429cb129676170d72, type: 2}
+    amount: 10
+  requires: []
+  grants:
+  - item: {fileID: 11400000, guid: 52a5892961c5cb64d8d2635e02e168d7, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 511e63a736fc8fa47877ae08b7687a1f, type: 2}
+    amount: 1
+  unlockHandRecipes: []
+  unlockMachineRecipes: []
