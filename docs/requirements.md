@@ -246,6 +246,9 @@ Place sources → process through machines and controllers → collect by hand �
   - The window hides when nothing is selected.
 
 **Inspecting**
+- **Window placement:** both windows are fixed to the screen and don't move with the camera.
+  - The info popup sits at **center-right**. If it would reach the I/O window, it moves up to sit just above it.
+  - The I/O window (ports or output side) sits at **bottom-right**.
 - With nothing selected, clicking a placed building opens an **info popup**:
   - **Machine:** current recipe (set or changed here), buffer contents, process status (working, idle, no recipe, output blocked).
     - A separate **output side window** opens next to it. It uses the same layout as the controller's port window: the machine as a square with 4 side buttons around it.

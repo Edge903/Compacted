@@ -197,25 +197,26 @@ namespace Compacted.View
             }
         }
 
+        const float EdgeMargin = 16, BottomMargin = 30, Gap = 8;
+
+        /// <summary>
+        /// Fixed screen anchors, independent of the camera: the info window at centre-right, the I/O window
+        /// (ports / output side) at bottom-right. If the info window is tall enough to reach the I/O window,
+        /// it moves up to sit just above it.
+        /// </summary>
         void PositionPopup(Entity e)
         {
-            var world = view.TileCenterWorld(e.X, e.Y);
-            var screen = view.cam.WorldToScreenPoint(world);
-            var p = RuntimePanelUtils.ScreenToPanel(root.panel, new Vector2(screen.x, Screen.height - screen.y));
-            float tile = Mathf.Abs(RuntimePanelUtils.ScreenToPanel(root.panel, view.cam.WorldToScreenPoint(world + Vector3.right * 0.5f)).x - p.x) * 2;
-            var size = root.layout.size;
-            float w = popup.layout.width > 0 ? popup.layout.width : 270, h = popup.layout.height > 0 ? popup.layout.height : 200;
-            float left = p.x + tile / 2 + 12, top = p.y - 20;
-            if (left + w > size.x - 140) left = p.x - tile / 2 - w - 12;
-            top = Mathf.Clamp(top, 50, Mathf.Max(50, size.y - h - 90));
-            popup.style.left = left; popup.style.top = top;
+            float screenH = root.layout.height;
+            float h = popup.layout.height > 0 ? popup.layout.height : 200;
+            float top = (screenH - h) / 2;
             if (sideWindow.style.display == DisplayStyle.Flex)
             {
-                float sw = sideWindow.layout.width > 0 ? sideWindow.layout.width : 196;
-                float sl = left + w + 8;
-                if (sl + sw > size.x - 140) sl = left - sw - 8;
-                sideWindow.style.left = sl; sideWindow.style.top = top;
+                float sh = sideWindow.layout.height > 0 ? sideWindow.layout.height : 260;
+                float sideTop = screenH - BottomMargin - sh;
+                if (top + h > sideTop - Gap) top = sideTop - Gap - h;
             }
+            popup.style.right = EdgeMargin;
+            popup.style.top = Mathf.Max(EdgeMargin, top);
         }
 
         Button AddButton(VisualElement parent, Entity e, string item) =>
