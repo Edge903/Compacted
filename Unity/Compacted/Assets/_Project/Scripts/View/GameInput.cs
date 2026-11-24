@@ -11,7 +11,8 @@ namespace Compacted.View
         public WorldView view;
         public GameUI ui;
 
-        const float PanSpeed = 8f;   // tiles per second
+        const float PanSpeed = 5f;   // tiles per second at zoom 1
+        const float ZoomStep = 0.1f;
         float lastClickTime = -1;
         Cell lastClickTile;
         Cell? dragStart;
@@ -66,7 +67,8 @@ namespace Compacted.View
             if (kb.sKey.isPressed) pan.y -= 1;
             if (kb.aKey.isPressed) pan.x -= 1;
             if (kb.dKey.isPressed) pan.x += 1;
-            game.CameraOffset += pan * (PanSpeed * Time.unscaledDeltaTime);
+            // Pan faster when zoomed out, so the screen moves at about the same speed at any zoom.
+            game.CameraOffset += pan * (PanSpeed * Time.unscaledDeltaTime / game.Zoom);
 
             if (Down(kb.rKey) && game.Slot >= 0) game.Rotate(kb.shiftKey.isPressed ? -1 : 1);
             if (Down(kb.qKey)) game.SetDestroyMode(!game.DestroyMode);
@@ -104,6 +106,10 @@ namespace Compacted.View
                 return;
             }
             if (overUi) return;
+
+            // Mouse wheel zooms between 0.5× and 1× of the fitted view (wheel up = closer).
+            float wheel = mouse.scroll.ReadValue().y;
+            if (Mathf.Abs(wheel) > 0.01f) game.SetZoom(game.Zoom + Mathf.Sign(wheel) * ZoomStep);
 
             if (Down(mouse.rightButton))
             {

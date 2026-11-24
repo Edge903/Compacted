@@ -134,7 +134,7 @@ namespace Compacted.View
             sideTabs[Panel.Tech] = Btn(side, "Tech tree  T", () => TogglePanel(Panel.Tech), "side-tab");
             sideTabs[Panel.Crafting] = Btn(side, "Crafting  C", () => TogglePanel(Panel.Crafting), "side-tab");
 
-            var hint = Text(hud, "WASD camera · 1–9 slot · R rotate\nLMB place / inspect · RMB deselect\nQ destroy · Tab materials · T tech · C craft\nEsc close / pause · double-click a controller to enter", "hint");
+            var hint = Text(hud, "WASD camera · wheel zoom · 1–9 slot · R rotate\nLMB place / inspect · RMB deselect\nQ destroy · Tab materials · T tech · C craft\nEsc close / pause · double-click a controller to enter", "hint");
             hint.pickingMode = PickingMode.Ignore;
 
             bar = Div(hud, "bar");

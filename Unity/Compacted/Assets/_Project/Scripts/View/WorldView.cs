@@ -104,11 +104,7 @@ namespace Compacted.View
             float alpha = Mathf.Lerp(0.25f, 1, k);
             root.localScale = new Vector3(currentScale, currentScale, 1);
 
-            // Camera: fit the dimension, plus room for the toolbar, then apply the pan offset.
-            float need = dim.Size + 2 * WallWidth + 1.6f;
-            float size = Mathf.Max(need / 2f, need / 2f / cam.aspect) + 0.7f;
-            cam.orthographicSize = size;
-            cam.transform.position = new Vector3(g.CameraOffset.x, g.CameraOffset.y - 0.4f, -10);
+            UpdateCamera(dim);
 
             baseMesh.Clear(); overMesh.Clear();
             baseMesh.Alpha = alpha; overMesh.Alpha = alpha;
@@ -119,6 +115,45 @@ namespace Compacted.View
 
             baseMesh.Apply(); overMesh.Apply();
             for (int i = spritesUsed; i < spritePool.Count; i++) spritePool[i].enabled = false;
+        }
+
+        // ---------- camera ----------
+        const float PanSmoothTime = 0.12f, ZoomSmoothTime = 0.1f;
+        Vector2 camPos, camVel;
+        float camSize, camSizeVel;
+        bool snapCamera = true;
+
+        /// <summary>Jump straight to the camera target next frame (new dimension, load, new game).</summary>
+        public void SnapCamera() => snapCamera = true;
+
+        /// <summary>Orthographic size at zoom 1: the dimension fills the view, with room for the toolbar.</summary>
+        float FitSize(Dimension dim)
+        {
+            float need = dim.Size + 2 * WallWidth + 1.6f;
+            return Mathf.Max(need / 2f, need / 2f / cam.aspect) + 0.7f;
+        }
+
+        void UpdateCamera(Dimension dim)
+        {
+            var g = game;
+            // Keep the target near the grid so it can't be panned away and lost.
+            float limit = dim.Size / 2f + 1f;
+            g.CameraOffset = new Vector2(Mathf.Clamp(g.CameraOffset.x, -limit, limit), Mathf.Clamp(g.CameraOffset.y, -limit, limit));
+            float targetSize = FitSize(dim) / g.Zoom;
+            var targetPos = g.CameraOffset + new Vector2(0, -0.4f);
+            if (snapCamera)
+            {
+                camPos = targetPos; camSize = targetSize; camVel = Vector2.zero; camSizeVel = 0;
+                snapCamera = false;
+            }
+            else
+            {
+                float dt = Time.unscaledDeltaTime;
+                camPos = Vector2.SmoothDamp(camPos, targetPos, ref camVel, PanSmoothTime, Mathf.Infinity, dt);
+                camSize = Mathf.SmoothDamp(camSize, targetSize, ref camSizeVel, ZoomSmoothTime, Mathf.Infinity, dt);
+            }
+            cam.orthographicSize = camSize;
+            cam.transform.position = new Vector3(camPos.x, camPos.y, -10);
         }
 
         void DrawDimension(Dimension dim)

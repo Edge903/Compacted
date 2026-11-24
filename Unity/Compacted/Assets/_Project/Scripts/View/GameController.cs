@@ -23,8 +23,13 @@ namespace Compacted.View
 
         // ---- view state (saved with the game) ----
         public int CurrentDim;
-        /// <summary>Camera offset from the current dimension's centre, in tiles.</summary>
+        /// <summary>Camera target offset from the current dimension's centre, in tiles. The camera eases toward it.</summary>
         public Vector2 CameraOffset;
+        /// <summary>Camera zoom target: 1 = the dimension fills the view (closest), 0.5 = half that size (furthest).</summary>
+        public float Zoom = DefaultZoom;
+        public const float MinZoom = 0.5f, MaxZoom = 1f, DefaultZoom = 0.5f;
+
+        public void SetZoom(float z) => Zoom = Mathf.Clamp(z, MinZoom, MaxZoom);
         public readonly string[] Toolbar = new string[9];
         public int Slot = -1;
 
@@ -57,6 +62,8 @@ namespace Compacted.View
             World = new World(Content);
             CurrentDim = World.RootId;
             CameraOffset = Vector2.zero;
+            Zoom = DefaultZoom;
+            if (view != null) view.SnapCamera();
             for (int i = 0; i < Toolbar.Length; i++) Toolbar[i] = i < DefaultToolbar.Length && Content.Buildings.ContainsKey(DefaultToolbar[i]) ? DefaultToolbar[i] : null;
             Slot = -1; DestroyMode = false; SelectedEntity = 0; Paused = false;
             autosaveTimer = 0;
@@ -106,7 +113,7 @@ namespace Compacted.View
             CameraOffset = Vector2.zero;
             SelectedEntity = 0;
             DragRect = null;
-            if (view != null) view.StartTransition(zoomIn);
+            if (view != null) { view.StartTransition(zoomIn); view.SnapCamera(); }
             NotifyChanged();
         }
 
@@ -125,11 +132,13 @@ namespace Compacted.View
         }
 
         // ---------- save / load ----------
-        public void LoadWorld(World w, int dim, Vector2 camOffset, string[] toolbar)
+        public void LoadWorld(World w, int dim, Vector2 camOffset, string[] toolbar, float zoom = DefaultZoom)
         {
             World = w;
             CurrentDim = w.Dims.ContainsKey(dim) ? dim : w.RootId;
             CameraOffset = camOffset;
+            SetZoom(zoom);
+            if (view != null) view.SnapCamera();
             if (toolbar != null) for (int i = 0; i < Toolbar.Length; i++) Toolbar[i] = i < toolbar.Length && toolbar[i] != null && Content.Buildings.ContainsKey(toolbar[i]) ? toolbar[i] : null;
             Slot = -1; DestroyMode = false; SelectedEntity = 0; DragRect = null;
             accumulator = 0;

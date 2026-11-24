@@ -271,7 +271,8 @@ Place sources → process through machines and controllers → collect by hand �
 
 | Key | Action |
 |---|---|
-| WASD | Move camera |
+| WASD | Move camera (eased; faster when zoomed out; can't pan far past the grid) |
+| Mouse wheel | Zoom between 1× (the dimension fills the view) and 0.5×; the game starts at 0.5× (eased) |
 | 1–9 | Select toolbar slot |
 | R | Rotate preview |
 | Q | Destroy mode |

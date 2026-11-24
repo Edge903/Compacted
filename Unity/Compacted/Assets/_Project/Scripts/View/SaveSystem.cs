@@ -18,6 +18,7 @@ namespace Compacted.View
         public WorldSave World;
         public int CurrentDim;
         public float CameraX, CameraY;
+        public float CameraZoom = GameController.DefaultZoom;
         public string[] Toolbar;
     }
 
@@ -64,6 +65,7 @@ namespace Compacted.View
                     CurrentDim = g.CurrentDim,
                     CameraX = g.CameraOffset.x,
                     CameraY = g.CameraOffset.y,
+                    CameraZoom = g.Zoom,
                     Toolbar = (string[])g.Toolbar.Clone(),
                 };
                 File.WriteAllText(System.IO.Path.Combine(Folder, name + ".json"), JsonConvert.SerializeObject(file, Settings));
@@ -85,7 +87,7 @@ namespace Compacted.View
                 if (file == null) return "The save file is empty.";
                 if (file.Version != SaveFile.CurrentVersion) return $"Save format version {file.Version} isn't supported.";
                 var world = Sim.World.FromSave(g.Content, file.World);
-                g.LoadWorld(world, file.CurrentDim, new Vector2(file.CameraX, file.CameraY), file.Toolbar);
+                g.LoadWorld(world, file.CurrentDim, new Vector2(file.CameraX, file.CameraY), file.Toolbar, file.CameraZoom);
                 return null;
             }
             catch (Exception e)
