@@ -6,7 +6,8 @@ Everything made for Compacted lives under `Assets/_Project/`. Third-party and pa
 |---|---|---|
 | `Scripts/Sim/` | `Compacted.Sim` | The simulation: grid, dimensions, I/O rule, machines, fluids, fuel, multiblocks, tech, save/load. Plain C# with **no UnityEngine references** (`noEngineReferences`), ported from `prototype/sim.js`. |
 | `Scripts/Data/` | `Compacted.Data` | ScriptableObject definitions (items, fluids, buildings, recipes, multiblocks, tech nodes, tuning) and `ContentDatabase`, which builds the simulation's `ContentSet` and validates content. |
-| `Scripts/View/` | `Compacted.View` *(phase 4)* | Rendering, input and UI Toolkit screens. Reads the simulation; never holds game rules. |
+| `Scripts/View/` | `Compacted.View` | `GameController` (world, view state, sim loop, autosave), `WorldView` (flat shape rendering; a building's sprite replaces its shape when set), `GameInput`, `SaveSystem`, and the UI Toolkit interface in `UI/` (`GameUI` partial classes). Reads the simulation; never holds game rules. |
+| `Scenes/` | — | `Game.unity`, the only build scene. Rebuild it with **Compacted → Setup → Create Game Scene**. |
 | `Scripts/Editor/` | `Compacted.Editor` | Editor tools under the **Compacted → Content** menu: validate content, collect new definition assets into the database, and regenerate the early-game content. |
 | `Tests/EditMode/` | `Compacted.Sim.Tests` | EditMode tests for the simulation, including the checks ported from the prototype. |
 | `Tests/EditMode/Data/` | `Compacted.Data.Tests` | Checks that the content assets are valid and match `docs/early-game.md`. |

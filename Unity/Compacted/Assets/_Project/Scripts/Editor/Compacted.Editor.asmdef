@@ -3,7 +3,8 @@
     "rootNamespace": "Compacted.Editor",
     "references": [
         "Compacted.Sim",
-        "Compacted.Data"
+        "Compacted.Data",
+        "Compacted.View"
     ],
     "includePlatforms": [
         "Editor"
