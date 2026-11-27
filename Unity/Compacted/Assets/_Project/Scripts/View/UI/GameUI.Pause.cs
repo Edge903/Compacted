@@ -48,6 +48,7 @@ namespace Compacted.View
         public void SetPaused(bool paused)
         {
             game.Paused = paused;
+            if (!paused) { var a = Audio; if (a != null) a.SetVolumes(a.CurrentAmbienceSetting, a.CurrentSfxSetting, save: true); }
             pauseLayer.style.display = paused ? DisplayStyle.Flex : DisplayStyle.None;
             if (paused)
             {
@@ -81,9 +82,39 @@ namespace Compacted.View
             }
         }
 
+        GameAudio Audio => game.GetComponent<GameAudio>();
+
+        /// <summary>A 0–100% volume slider. Applies while dragging; saves when released.</summary>
+        void VolumeSlider(string label, float value, System.Action<float> apply, System.Action onRelease)
+        {
+            var row = Div(settingsBox, "row");
+            var slider = Add(row, new Slider(label, 0, 100) { value = value * 100 }, "volume");
+            var readout = Text(row, Mathf.RoundToInt(value * 100) + "%", "bold", "volume-value");
+            slider.RegisterValueChangedCallback(ev =>
+            {
+                readout.text = Mathf.RoundToInt(ev.newValue) + "%";
+                apply(ev.newValue / 100f);
+            });
+            slider.RegisterCallback<PointerCaptureOutEvent>(_ => onRelease());
+        }
+
         void RenderSettings()
         {
             settingsBox.Clear();
+            var audio = Audio;
+            if (audio != null)
+            {
+                VolumeSlider("Ambience", audio.CurrentAmbienceSetting,
+                    v => audio.SetVolumes(v, audio.CurrentSfxSetting, save: false),
+                    () => audio.SetVolumes(audio.CurrentAmbienceSetting, audio.CurrentSfxSetting, save: true));
+                VolumeSlider("Sound effects", audio.CurrentSfxSetting,
+                    v => audio.SetVolumes(audio.CurrentAmbienceSetting, v, save: false),
+                    () =>
+                    {
+                        audio.SetVolumes(audio.CurrentAmbienceSetting, audio.CurrentSfxSetting, save: true);
+                        audio.Play(audio.craftDone);   // a sample at the new level
+                    });
+            }
             var free = Add(settingsBox, new Toggle("Free build (debug)") { value = W.FreeBuild });
             free.RegisterValueChangedCallback(ev => { W.FreeBuild = ev.newValue; game.NotifyChanged(); });
 

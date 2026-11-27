@@ -182,6 +182,9 @@ Button.dim { opacity: 0.45; }
 .pause-title { font-size: 16px; -unity-font-style: bold; margin-bottom: 8px; }
 .settings { border-top-width: 1px; border-color: var(--border); padding-top: 8px; margin-bottom: 8px; }
 .saves { max-height: 220px; margin-bottom: 8px; }
+.volume { flex-grow: 1; margin: 0; }
+.volume > Label { color: var(--muted); min-width: 110px; }
+.volume-value { width: 42px; -unity-text-align: middle-right; }
 .save-row { flex-direction: row; justify-content: space-between; align-items: center; padding: 4px 0; }
 TextField { margin: 0; }
 TextField > .unity-text-field__input { background-color: var(--panel2); border-color: var(--border); color: var(--text); }

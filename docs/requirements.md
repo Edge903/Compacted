@@ -323,6 +323,10 @@ Place sources → process through machines and controllers → collect by hand �
 | Block placed | Short ping, **pitch 0.5** | Any block except belts and pipes |
 | The selected machine finishes one craft | Bliq | Machines and multiblock cores; only while its info popup is open |
 
+- **Volume settings:** Pause → Settings has **Ambience** and **Sound effects** sliders (0–100%, default 100%).
+  - They scale the designed mix: ambience 0.30 and effects 0.48, with the place sound a further ×0.8.
+  - They're saved per computer, not in save files.
+  - Releasing the Sound effects slider plays a sample sound.
 - **Import settings:** long tracks stream from disk; short effects load into memory.
 - **Credits:** sounds come from Freesound; see `CREDITS.md`.
 

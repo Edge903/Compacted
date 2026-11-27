@@ -14,18 +14,48 @@ namespace Compacted.View
 
         [Header("Ambience")]
         public AudioClip[] ambience;
-        [Range(0, 1)] public float ambienceVolume = 0.5f;
+        [Range(0, 1)] public float ambienceVolume = 0.3f;
         [Tooltip("Ambience volume multiplier while the game is paused.")]
         [Range(0, 1)] public float pausedMultiplier = 0.5f;
         public float crossfadeSeconds = 4f;
 
         [Header("Sound effects")]
-        [Range(0, 1)] public float sfxVolume = 0.8f;
+        [Range(0, 1)] public float sfxVolume = 0.48f;
         [Tooltip("A tech node is completed.")] public AudioClip techComplete;
         [Tooltip("Items are taken from a machine by hand.")] public AudioClip manualPickup;
         [Tooltip("A block other than a belt or pipe is placed.")] public AudioClip placeBlock;
         public float placeBlockPitch = 0.5f;
+        [Tooltip("Extra volume multiplier for the place sound, on top of the effects volume.")]
+        [Range(0, 1)] public float placeBlockVolume = 0.8f;
         [Tooltip("The selected machine finishes one craft.")] public AudioClip craftDone;
+
+        // ---------- player volume settings (0–1, saved per machine; multiply the designed mix above) ----------
+        const string AmbienceKey = "compacted.volume.ambience", SfxKey = "compacted.volume.sfx";
+
+        public static float AmbienceSetting
+        {
+            get => PlayerPrefs.GetFloat(AmbienceKey, 1f);
+            set { PlayerPrefs.SetFloat(AmbienceKey, Mathf.Clamp01(value)); PlayerPrefs.Save(); }
+        }
+
+        public static float SfxSetting
+        {
+            get => PlayerPrefs.GetFloat(SfxKey, 1f);
+            set { PlayerPrefs.SetFloat(SfxKey, Mathf.Clamp01(value)); PlayerPrefs.Save(); }
+        }
+
+        float ambienceSetting = 1, sfxSetting = 1;
+
+        /// <summary>Set the player's volumes. Saving can be deferred while a slider is dragged.</summary>
+        public void SetVolumes(float ambience, float sfx, bool save)
+        {
+            ambienceSetting = Mathf.Clamp01(ambience);
+            sfxSetting = Mathf.Clamp01(sfx);
+            if (save) { AmbienceSetting = ambienceSetting; SfxSetting = sfxSetting; }
+        }
+
+        public float CurrentAmbienceSetting => ambienceSetting;
+        public float CurrentSfxSetting => sfxSetting;
 
         AudioSource[] ambienceSources;
         int activeSource;
@@ -40,6 +70,8 @@ namespace Compacted.View
 
         void Awake()
         {
+            ambienceSetting = AmbienceSetting;
+            sfxSetting = SfxSetting;
             // Without an AudioListener nothing is heard; add one to the camera if the scene lacks it.
             if (FindFirstObjectByType<AudioListener>() == null)
             {
@@ -100,10 +132,10 @@ namespace Compacted.View
 
         void OnTechCompleted(string id) => Play(techComplete);
         void OnItemsTaken(Entity e, int count) => Play(manualPickup);
-        void OnBlockPlaced(Entity e) { if (!e.Def.Free) Play(placeBlock, placeBlockPitch); }   // not belts or pipes
+        void OnBlockPlaced(Entity e) { if (!e.Def.Free) Play(placeBlock, placeBlockPitch, placeBlockVolume); }   // not belts or pipes
         void OnCraftCompleted(Entity e) { if (e.Id == game.SelectedEntity) Play(craftDone); }
 
-        public void Play(AudioClip clip, float pitch = 1f)
+        public void Play(AudioClip clip, float pitch = 1f, float volume = 1f)
         {
             if (clip == null) return;
             var s = sfxPool[nextSfx];
@@ -111,7 +143,7 @@ namespace Compacted.View
             s.Stop();
             s.clip = clip;
             s.pitch = pitch;
-            s.volume = sfxVolume;
+            s.volume = sfxVolume * sfxSetting * volume;
             s.Play();
         }
 
@@ -126,8 +158,9 @@ namespace Compacted.View
             var current = ambienceSources[activeSource];
             var previous = ambienceSources[1 - activeSource];
             if (fade < 1) fade = Mathf.Min(1, fade + Time.unscaledDeltaTime / Mathf.Max(0.01f, crossfadeSeconds));
-            current.volume = ambienceVolume * pauseFactor * fade;
-            previous.volume = ambienceVolume * pauseFactor * (1 - fade);
+            float level = ambienceVolume * ambienceSetting * pauseFactor;
+            current.volume = level * fade;
+            previous.volume = level * (1 - fade);
             if (fade >= 1 && previous.isPlaying) previous.Stop();
 
             // Start the next track so it fades in as the current one ends.

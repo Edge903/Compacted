@@ -357,14 +357,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c4c609482df40634282086111d70bdb9, type: 3}
   - {fileID: 8300000, guid: 5ed65099ccc2da347a8a8b8871d944da, type: 3}
   - {fileID: 8300000, guid: 482c16279da56bb43ba7fe9586f1c1b0, type: 3}
-  ambienceVolume: 0.5
+  ambienceVolume: 0.3
   pausedMultiplier: 0.5
   crossfadeSeconds: 4
-  sfxVolume: 0.8
+  sfxVolume: 0.48
   techComplete: {fileID: 8300000, guid: a57cd4f0f2b4cdd49a448fc29b2ae7d6, type: 3}
   manualPickup: {fileID: 8300000, guid: 5fa16eb34d18c7c44976ebf29a15ed2c, type: 3}
   placeBlock: {fileID: 8300000, guid: 17c23627998f70c4daf1801579f0a613, type: 3}
   placeBlockPitch: 0.5
+  placeBlockVolume: 0.8
   craftDone: {fileID: 8300000, guid: c228ef949e501b244b07168fbe415a67, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
