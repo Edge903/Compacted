@@ -50,7 +50,9 @@ namespace Compacted.Sim
             foreach (var kv in t.Grant) { int l = AddInv(kv.Key, kv.Value); if (l > 0) lost[kv.Key] = l; }
             foreach (var r in t.UnlockHand) if (!UnlockedHand.Contains(r)) UnlockedHand.Add(r);
             foreach (var r in t.UnlockMachine) if (!UnlockedMachine.Contains(r)) UnlockedMachine.Add(r);
-            if (!TechDone.Contains(techId)) TechDone.Add(techId);
+            bool isNew = !TechDone.Contains(techId);
+            if (isNew) TechDone.Add(techId);
+            if (isNew && !force) TechCompleted?.Invoke(techId);
             return Result.Success;
         }
 

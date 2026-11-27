@@ -83,6 +83,7 @@ namespace Compacted.Sim
                 moved += n - left;
                 if (left > 0) buf[k] = left; else buf.Remove(k);
             }
+            if (moved > 0) ItemsTakenByHand?.Invoke(e, moved);
             return moved;
         }
 
@@ -251,6 +252,7 @@ namespace Compacted.Sim
             foreach (var kv in r.Out) m.OutBuf[kv.Key] = Get(m.OutBuf, kv.Key) + kv.Value;
             foreach (var kv in r.FluidOut) m.FluidOut[kv.Key] = Get(m.FluidOut, kv.Key) + kv.Value;
             m.Crafting = false; m.Prog = 0; m.Status = MachineStatus.Working;
+            CraftCompleted?.Invoke(m);
         }
 
         /// <summary>Direct machine-to-machine fluid transfer. Returns ml accepted.</summary>

@@ -75,6 +75,8 @@ namespace Compacted.Editor
             input.view = view;
             input.ui = ui;
 
+            GameAudioSetup.Configure(controller);
+
             EditorSceneManager.SaveScene(scene, ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
             AssetDatabase.SaveAssets();

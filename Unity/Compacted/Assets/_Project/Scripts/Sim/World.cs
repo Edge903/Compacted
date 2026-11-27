@@ -150,6 +150,7 @@ namespace Compacted.Sim
 
             MarkSegmentsDirty();
             placed = e;
+            BlockPlaced?.Invoke(e);
             return Result.Success;
         }
 

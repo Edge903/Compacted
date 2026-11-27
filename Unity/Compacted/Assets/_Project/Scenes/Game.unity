@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 275099027}
   - component: {fileID: 275099026}
   - component: {fileID: 275099025}
+  - component: {fileID: 275099031}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -285,6 +286,7 @@ MonoBehaviour:
   view: {fileID: 275099027}
   CurrentDim: 0
   CameraOffset: {x: 0, y: 0}
+  Zoom: 0.5
   Slot: -1
   PreviewDir: 1
   DestroyMode: 0
@@ -329,6 +331,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &275099031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275099024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b7c283e6cf09d43b60c8ef7801b6bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Compacted.View::Compacted.View.GameAudio
+  game: {fileID: 275099028}
+  ambience:
+  - {fileID: 8300000, guid: c4c609482df40634282086111d70bdb9, type: 3}
+  - {fileID: 8300000, guid: 5ed65099ccc2da347a8a8b8871d944da, type: 3}
+  - {fileID: 8300000, guid: 482c16279da56bb43ba7fe9586f1c1b0, type: 3}
+  ambienceVolume: 0.5
+  pausedMultiplier: 0.5
+  crossfadeSeconds: 4
+  sfxVolume: 0.8
+  techComplete: {fileID: 8300000, guid: a57cd4f0f2b4cdd49a448fc29b2ae7d6, type: 3}
+  manualPickup: {fileID: 8300000, guid: 5fa16eb34d18c7c44976ebf29a15ed2c, type: 3}
+  placeBlock: {fileID: 8300000, guid: 17c23627998f70c4daf1801579f0a613, type: 3}
+  placeBlockPitch: 0.5
+  craftDone: {fileID: 8300000, guid: c228ef949e501b244b07168fbe415a67, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

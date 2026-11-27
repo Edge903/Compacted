@@ -97,6 +97,7 @@ namespace Compacted.Sim
             if (r.Out.Any(kv => Room(kv.Key, kv.Value) == null)) { c.Status = MachineStatus.OutputBlocked; return; }
             foreach (var made in r.Out) { var target = Room(made.Key, made.Value); target.Buf[made.Key] = Get(target.Buf, made.Key) + made.Value; }
             c.Crafting = false; c.Prog = 0; c.Status = MachineStatus.Working;
+            CraftCompleted?.Invoke(c);
         }
 
         /// <summary>Output buses push one item per tick through their facing side.</summary>

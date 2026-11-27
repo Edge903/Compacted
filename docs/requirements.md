@@ -310,6 +310,22 @@ Place sources → process through machines and controllers → collect by hand �
 
 **Toolbar:** 9 slots, matching keys 1–9, with the Destroy button separate on the right.
 
+### 8.3 Sound
+
+- **Ambience:** the tracks in `Audio/Ambience` play as a looping playlist: shuffled, never the same track twice in a row, with a crossfade between tracks.
+  - Its volume eases down to **half** while the game is paused and back up on resume.
+- **Sound effects:**
+
+| Event | Sound | Notes |
+|---|---|---|
+| Tech node completed | Positive blip | Not for the debug "complete all tech" |
+| Items taken by hand (manual pickup) | Radar | |
+| Block placed | Short ping, **pitch 0.5** | Any block except belts and pipes |
+| The selected machine finishes one craft | Bliq | Machines and multiblock cores; only while its info popup is open |
+
+- **Import settings:** long tracks stream from disk; short effects load into memory.
+- **Credits:** sounds come from Freesound; see `CREDITS.md`.
+
 ## 9. Simulation
 
 - Every dimension is simulated all the time, with basic optimization.
