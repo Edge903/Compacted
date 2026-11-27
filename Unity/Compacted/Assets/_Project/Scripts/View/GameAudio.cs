@@ -40,6 +40,13 @@ namespace Compacted.View
 
         void Awake()
         {
+            // Without an AudioListener nothing is heard; add one to the camera if the scene lacks it.
+            if (FindFirstObjectByType<AudioListener>() == null)
+            {
+                var cam = game != null && game.view != null ? game.view.cam : Camera.main;
+                (cam != null ? cam.gameObject : gameObject).AddComponent<AudioListener>();
+                Debug.LogWarning("No AudioListener in the scene; added one at runtime.");
+            }
             ambienceSources = new[] { MakeSource("Ambience A"), MakeSource("Ambience B") };
             sfxPool = new AudioSource[8];
             for (int i = 0; i < sfxPool.Length; i++) sfxPool[i] = MakeSource("SFX " + i);

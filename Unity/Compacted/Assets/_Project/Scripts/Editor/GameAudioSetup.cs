@@ -25,6 +25,10 @@ namespace Compacted.Editor
         /// <summary>Add or update the GameAudio component on the controller's object and assign clips.</summary>
         public static void Configure(GameController game)
         {
+            // Unity only outputs sound through an AudioListener; it lives on the camera.
+            var cam = game.view != null ? game.view.cam : Camera.main;
+            if (cam != null && cam.GetComponent<AudioListener>() == null) cam.gameObject.AddComponent<AudioListener>();
+
             var audio = game.GetComponent<GameAudio>() ?? game.gameObject.AddComponent<GameAudio>();
             audio.game = game;
             audio.ambience = Clips("Assets/_Project/Audio/Ambience");
